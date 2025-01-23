@@ -1,0 +1,54 @@
+[package]
+name = "watermelon"
+version = "0.1.0"
+description = "High level actor based implementation NATS Core and NATS Jetstream client implementation"
+categories = ["api-bindings", "network-programming"]
+keywords = ["nats", "client", "jetstream"]
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[package.metadata.docs.rs]
+features = ["websocket", "non-standard-zstd"]
+
+[dependencies]
+tokio = { version = "1.36", features = ["rt", "sync", "time"] }
+arc-swap = "1"
+futures-core = "0.3"
+futures-util = { version = "0.3", default-features = false }
+bytes = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+pin-project-lite = "0.2"
+rand = "0.8"
+chrono = { version = "0.4", default-features = false, features = ["std", "clock", "serde"] }
+
+# from-env
+envy = { version = "0.4", optional = true }
+
+# portable-atomic
+portable-atomic = { version = "1", optional = true }
+
+watermelon-mini = { version = "0.1", path = "../watermelon-mini", default-features = false }
+watermelon-net = { version = "0.1", path = "../watermelon-net" }
+watermelon-proto = { version = "0.1", path = "../watermelon-proto" }
+watermelon-nkeys = { version = "0.1", path = "../watermelon-nkeys", default-features = false }
+
+thiserror = "2"
+
+[dev-dependencies]
+claims = "0.8"
+
+[features]
+default = ["aws-lc-rs", "from-env"]
+websocket = ["watermelon-mini/websocket"]
+aws-lc-rs = ["watermelon-mini/aws-lc-rs", "watermelon-nkeys/aws-lc-rs"]
+ring = ["watermelon-mini/ring", "watermelon-nkeys/ring"]
+fips = ["watermelon-mini/fips", "watermelon-nkeys/fips"]
+from-env = ["dep:envy"]
+portable-atomic = ["dep:portable-atomic"]
+non-standard-zstd = ["watermelon-mini/non-standard-zstd", "watermelon-net/non-standard-zstd", "watermelon-proto/non-standard-zstd"]
+
+[lints]
+workspace = true

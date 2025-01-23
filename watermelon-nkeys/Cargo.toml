@@ -1,0 +1,26 @@
+[package]
+name = "watermelon-nkeys"
+version = "0.1.0"
+description = "Minimal NKeys implementation for NATS client authentication"
+categories = ["parser-implementations", "cryptography"]
+keywords = ["nats", "nkey"]
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+aws-lc-rs = { version = "1.12.2", default-features = false, features = ["aws-lc-sys", "prebuilt-nasm"], optional = true }
+ring = { version = "0.17", optional = true }
+crc = "3.2.1"
+thiserror = "2"
+data-encoding = { version = "2.7.0", default-features = false }
+
+[features]
+default = ["aws-lc-rs"]
+aws-lc-rs = ["dep:aws-lc-rs"]
+ring = ["dep:ring"]
+fips = ["aws-lc-rs", "aws-lc-rs/fips"]
+
+[lints]
+workspace = true

@@ -1,0 +1,30 @@
+[workspace]
+members = [
+    "watermelon",
+    "watermelon-mini",
+    "watermelon-net",
+    "watermelon-proto",
+    "watermelon-nkeys",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/M4SS-Code/watermelon"
+rust-version = "1.81"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+unreachable_pub = "deny"
+
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+await_holding_refcell_ref = "deny"
+map_unwrap_or = "warn"
+needless_lifetimes = "warn"
+needless_raw_string_hashes = "warn"
+redundant_closure_for_method_calls = "warn"
+semicolon_if_nothing_returned = "warn"
+str_to_string = "warn"
